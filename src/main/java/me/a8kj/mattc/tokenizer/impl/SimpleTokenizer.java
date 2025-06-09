@@ -8,10 +8,11 @@ import me.a8kj.mattc.tokenizer.attributes.TokenizerRule;
 import me.a8kj.mattc.tokenizer.context.TokenizerContext;
 import me.a8kj.mattc.tokenizer.error.TokenizerError;
 import me.a8kj.mattc.tokenizer.error.reasons.DefaultTokenizerErrorReason;
-import me.a8kj.mattc.tokenizer.regisrty.RuleRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.NonNull;
 
 public class SimpleTokenizer extends AbstractTokenizer {
 
@@ -25,11 +26,11 @@ public class SimpleTokenizer extends AbstractTokenizer {
             throw new RuntimeException("Loaded code cannot be null or empty.");
         }
 
-        TokenizerContext context = new TokenizerContext(input);
+        TokenizerContext context = createContext();
         List<Token> tokens = new ArrayList<>();
         List<TokenizerError<?>> errors = new ArrayList<>();
 
-        List<TokenizerRule> rules = RuleRegistry.getInstance().getRules();
+        List<TokenizerRule> rules = getRuleRegistry().getRules();
 
         while (context.hasNext()) {
             boolean matched = false;
@@ -58,6 +59,12 @@ public class SimpleTokenizer extends AbstractTokenizer {
         }
 
         return new TokenizerResult(tokens, errors);
+    }
+
+    @Override
+    public TokenizerResult tokenize(@NonNull String input) {
+        setInput(input);
+        return tokenize();
     }
 
 }

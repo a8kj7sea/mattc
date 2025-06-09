@@ -1,22 +1,16 @@
-package me.a8kj.mattc.tokenizer.regisrty;
+package me.a8kj.mattc.tokenizer.registry;
 
+import me.a8kj.mattc.tokenizer.attributes.TokenizerRule;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.a8kj.mattc.tokenizer.attributes.TokenizerRule;
 public final class RuleRegistry {
-
-    private static final RuleRegistry INSTANCE = new RuleRegistry();
 
     private final List<TokenizerRule> rules;
 
-    private RuleRegistry() {
+    public RuleRegistry() {
         this.rules = new ArrayList<>();
-    }
-
-    public static RuleRegistry getInstance() {
-        return INSTANCE;
     }
 
     public void addRule(TokenizerRule rule) {
@@ -35,4 +29,3 @@ public final class RuleRegistry {
         return Collections.unmodifiableList(rules);
     }
 }
-

@@ -1,16 +1,21 @@
 package me.a8kj.mattc.tokenizer;
 
-import lombok.RequiredArgsConstructor;
-import me.a8kj.mattc.tokenizer.attributes.TokenizerResult;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import me.a8kj.mattc.tokenizer.context.TokenizerContext;
+import me.a8kj.mattc.tokenizer.registry.RuleRegistry;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public abstract class AbstractTokenizer implements Tokenizer {
-    protected final String input;
+    
+    @Setter
+    protected String input;
 
-    public abstract TokenizerResult tokenize();
+    @Getter
+    protected final RuleRegistry ruleRegistry = new RuleRegistry();
 
     protected TokenizerContext createContext() {
-        return new TokenizerContext(input);
+        return new TokenizerContext(input != null ? input : "");
     }
-} 
+}
